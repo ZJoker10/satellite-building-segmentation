@@ -1,0 +1,15 @@
+torch>=2.0
+torchvision
+timm>=0.9.0
+numpy
+matplotlib
+tqdm
+scikit-image
+scipy
+jupyter
+
+# Optional: SAM pseudo-labels
+# segment-anything
+
+# Optional: GNN refinement
+# torch-geometric
