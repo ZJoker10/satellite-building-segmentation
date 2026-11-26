@@ -6,6 +6,8 @@ Building footprint extraction from aerial/satellite imagery using a hybrid **Sat
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.x-red.svg)]()
 [![Dataset](https://img.shields.io/badge/dataset-WHU_Building-green.svg)]()
 
+![Architecture: SatMAE++ encoder, SwinUNet decoder, SAM pseudo-labels and GNN refinement](docs/architecture.jpeg)
+
 ---
 
 ## Table of Contents
@@ -94,7 +96,12 @@ Binary Mask (256×256) — per-pixel "building" vs "not building"
 
 Unfrozen training with 30 epochs yields **+0.25 IoU gain** (44% relative improvement) with **halved standard deviation** — indicating more consistent performance across diverse building scenes.
 
-Training curves and prediction visualizations are saved as `training_curves.png` and `predictions.png`.
+![Predictions on held-out WHU tiles — input, ground truth and predicted mask](docs/predictions.png)
+
+<p align="center">
+  <img src="docs/training_curves.png" width="48%" alt="Training and validation curves" />
+  <img src="docs/training_history.png" width="48%" alt="Per-epoch loss and IoU history" />
+</p>
 
 ---
 
@@ -199,8 +206,9 @@ Then **Restart & Run All** (Runtime → Run all).
 | `best_satmae_swinunet.pth` | Best model checkpoint (by val IoU) |
 | `training_history.json` | Per-epoch train/val loss, IoU, F1 |
 | `training_results.json` | Final test set metrics |
-| `predictions.png` | Side-by-side visualization (image, ground truth, prediction, GNN-refined) |
-| `training_curves.png` | Loss and IoU curves over epochs |
+| `docs/predictions.png` | Side-by-side visualization (image, ground truth, prediction, GNN-refined) |
+| `docs/training_curves.png` | Loss and IoU curves over epochs |
+| `docs/architecture.jpeg` | Encoder / decoder / pseudo-label / GNN pipeline diagram |
 
 ---
 
@@ -269,15 +277,14 @@ Metrics tracked: IoU (Intersection over Union) and F1 (Dice coefficient).
 ## Project Structure
 
 ```
-├── satellite_segmentation_pretrained.ipynb   # Main notebook (41 cells)
+├── satellite_segmentation_pretrained.ipynb   # Main notebook (42 cells)
 ├── README.md                                 # This file
 ├── requirements.txt                          # Python dependencies
+├── docs/                                     # Architecture, predictions, curves
 │
 ├── best_satmae_swinunet.pth                  # Trained model checkpoint
 ├── training_history.json                     # Per-epoch metrics
 ├── training_results.json                     # Final test results
-├── predictions.png                           # Visual prediction grid
-├── training_curves.png                       # Loss/IoU curves
 │
 ├── sam_vit_h.pth                             # SAM checkpoint (download separately)
 ├── satmae_pp.pth                             # SatMAE++ checkpoint (optional)
