@@ -86,6 +86,12 @@ Binary Mask (256×256) — per-pixel "building" vs "not building"
 | **Epochs** | 3 | **30** |
 | **Training Data** | 10% (~474 images) | **100% (4,736 images)** |
 
+> **Which settings produced these numbers:** `NUM_EPOCHS = 30` and
+> `TRAIN_SUBSET_FRAC = 1.0` (the full 4 736-image training split). The
+> configuration table further down lists **quick-start defaults** — 5 epochs on
+> 15 % of the data — which are what the notebook ships with so a first run
+> finishes in minutes. They are not the settings behind the table above.
+
 Unfrozen training with 30 epochs yields **+0.25 IoU gain** (44% relative improvement) with **halved standard deviation** — indicating more consistent performance across diverse building scenes.
 
 Training curves and prediction visualizations are saved as `training_curves.png` and `predictions.png`.
@@ -198,18 +204,20 @@ Then **Restart & Run All** (Runtime → Run all).
 
 ---
 
-## Configuration
+## Configuration — quick-start defaults
 
-Key parameters in **Cell 15**:
+Key parameters in **Cell 15**. These defaults are tuned for a first run that
+finishes quickly; the [Results](#results) table used `NUM_EPOCHS = 30` and
+`TRAIN_SUBSET_FRAC = 1.0`.
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
 | `DATA_ROOT` | `"WHU"` | Path to WHU dataset (relative or absolute) |
 | `IMG_SIZE` | `256` | Input/output image size |
 | `BATCH_SIZE` | `8` | Batch size (adjust based on GPU memory) |
-| `NUM_EPOCHS` | `5` | Number of training epochs |
+| `NUM_EPOCHS` | `5` | Number of training epochs (30 for the results table) |
 | `FREEZE_ENCODER` | `False` | Freeze SatMAE++ backbone parameters |
-| `TRAIN_SUBSET_FRAC` | `0.15` | Fraction of training data to use |
+| `TRAIN_SUBSET_FRAC` | `0.15` | Fraction of training data (1.0 for the results table) |
 | `SAM_CKPT` | `"sam_vit_h.pth"` | Path to SAM checkpoint (or `None`) |
 | `SATMAE_CKPT` | `None` | Path to SatMAE++ checkpoint (or `None` for timm weights) |
 | `BACKBONE_LR` | `3e-5` | Learning rate for backbone |
